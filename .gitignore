@@ -1,0 +1,48 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+*venv*
+*__pycache__/
+*db.sqlite*
+*wsgi*
+*urls.c*
+*settings.cp*
+*__init*
+
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+db.sqlite
+app.cpy*
+database.cpy*
+models.cpy*
+*settings*
+
+# misc
+.DS_Store
+*.pem
+*initial.py
+
+# build
+*.exe
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local env files
+.env*.local
+Footer
+© 2022 GitHub, Inc.

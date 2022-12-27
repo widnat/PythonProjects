@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Enhanced</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</head>
+
+<body>
+    <div style="margin-top: 50px;" class="ui container">
+        <h1 class="ui center aligned header"></h1>
+
+        <form class="ui form" action="/add_category" method="post">
+            {% csrf_token %}
+            <div class="field">
+                <label>Create a Todo Category</label>
+                <input type="text" name="category_name" placeholder="Enter a Category"><br>
+            </div>
+            <button class="ui blue button" type="submit">Add</button>
+        </form>
+
+        <hr>
+
+        {% for category in categories %}
+        <div class="ui segment">
+            <p class="ui big header">Category: {{ category.name }}</p>
+
+            {% if category.complete == False %}
+            <span class="ui gray label">Not Complete</span>
+            <a class="ui blue button" href="/update_category/{{ category.id }}">Mark Category Complete</a>
+            {% else %}
+            <span class="ui green label">Completed</span>
+            <a class="ui blue button" href="/update_category/{{ category.id }}">Mark Category Uncomplete</a>
+            {% endif %}
+
+            <a class="ui red button" href="/delete_category/{{ category.id }}">Delete Category</a>
+
+            <form class="ui form" action="/add_todo/{{ category.id }}" method="post">
+                {% csrf_token %}
+                <div class="field">
+                    <label>Add Todo</label>
+                    <input type="text" name="todo_name" placeholder="Enter Todo"><br>
+                </div>
+                <button class="ui blue button" type="submit">Add</button>
+            </form>
+    
+            <hr>
+    
+            {% for todo in category.todos %}
+                <div class="ui segment">
+                    <p class="ui big header">Todo: {{ todo.name }}</p>
+        
+                    {% if todo.complete == False %}
+                    <span class="ui gray label">Not Complete</span>
+                    <a class="ui blue button" href="/update_todo/{{ todo.id }}">Mark Todo Complete</a>
+                    {% else %}
+                    <span class="ui green label">Completed</span>
+                    <a class="ui blue button" href="/update_todo/{{ todo.id }}">Mark Todo Uncomplete</a>
+                    {% endif %}
+        
+                    <a class="ui red button" href="/delete_todo/{{ todo.id }}">Delete Todo</a>
+                </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>
